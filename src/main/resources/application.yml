@@ -1,0 +1,12 @@
+spring:
+  context: annotation-config
+  profiles:
+    active: dev
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+api:
+  path: api/v1
+
+
+
