@@ -7,7 +7,10 @@ import com.recruitment.taskmanager.repositories.UserRepository;
 import com.recruitment.taskmanager.service.SearchCriteria;
 import com.recruitment.taskmanager.service.UserService;
 import com.recruitment.taskmanager.service.UserSpecification;
+import com.recruitment.taskmanager.service.UserValidator;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
@@ -21,10 +24,17 @@ public class UserController {
 
     UserService userService;
     UserRepository userRepository;
+    UserValidator userValidator;
 
-    public UserController(UserService userService, UserRepository userRepository) {
+    public UserController(UserService userService, UserRepository userRepository, UserValidator userValidator) {
         this.userService = userService;
         this.userRepository = userRepository;
+        this.userValidator = userValidator;
+    }
+
+    @InitBinder("userDto")
+    private void initBinder(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(userValidator);
     }
 
     @GetMapping("/")
@@ -53,7 +63,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    ResponseEntity<User> createUser(@RequestBody UserDto createdUser) {
+    ResponseEntity<User> createUser(@Valid @RequestBody UserDto createdUser) {
         User newUser = userService.saveUser(createdUser);
 
         URI newTaskUri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -79,6 +89,7 @@ public class UserController {
         User updatedUser = userService.updateUser(id, user);
         return ResponseEntity.ok().body(updatedUser);
     }
+
 
 
 }
