@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,9 +29,14 @@ public class AppExceptionController {
         return new ResponseEntity<>("User already existed in task", HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(value = DateTimeParseException.class)
+    public ResponseEntity<Object> exception(DateTimeParseException ex) {
+        return new ResponseEntity<>("Wrong Date format", HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> exception(MethodArgumentNotValidException ex) {
-        
+
         List<String> errors = new ArrayList<>();
 
         ex.getAllErrors().forEach(error -> errors.add((error.getDefaultMessage())));

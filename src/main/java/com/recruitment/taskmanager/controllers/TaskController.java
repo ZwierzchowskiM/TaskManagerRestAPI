@@ -6,6 +6,7 @@ import com.recruitment.taskmanager.exceptions.ResourceNotFoundException;
 import com.recruitment.taskmanager.model.Task;
 import com.recruitment.taskmanager.repositories.TaskRepository;
 import com.recruitment.taskmanager.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -41,7 +42,7 @@ public class TaskController {
     }
 
     @PostMapping("/")
-    ResponseEntity<Task> createTask(@RequestBody TaskDto taskDto) {
+    ResponseEntity<Task> createTask(@Valid @RequestBody TaskDto taskDto) {
         Task newTask = taskService.createTask(taskDto);
 
         URI newTaskUri = ServletUriComponentsBuilder.fromCurrentRequest()
