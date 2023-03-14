@@ -9,6 +9,8 @@ import com.recruitment.taskmanager.service.UserService;
 import com.recruitment.taskmanager.service.UserSpecification;
 import com.recruitment.taskmanager.service.UserValidator;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,8 @@ public class UserController {
     UserRepository userRepository;
     UserValidator userValidator;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
     public UserController(UserService userService, UserRepository userRepository, UserValidator userValidator) {
         this.userService = userService;
         this.userRepository = userRepository;
@@ -39,6 +43,8 @@ public class UserController {
 
     @GetMapping("/")
     public ResponseEntity<List<User>> getUsers(@RequestParam(required = false) String search) {
+
+        LOGGER.info("Getting all users");
 
         UserSpecification specification = new UserSpecification();
         if (search != null) {
@@ -56,6 +62,8 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
 
+        LOGGER.info("Getting info about user {}", id);
+
         User user = userService.findUserById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User with ID :" + id + " Not Found"));
 
@@ -64,6 +72,9 @@ public class UserController {
 
     @PostMapping("/")
     ResponseEntity<User> createUser(@Valid @RequestBody UserDto createdUser) {
+
+        LOGGER.info("Creating new user");
+
         User newUser = userService.saveUser(createdUser);
 
         URI newTaskUri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -75,7 +86,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteUser(@PathVariable Long id) {
-
+        LOGGER.info("Deleting user {}", id);
         if (userRepository.findById(id).isEmpty()) {
             throw new ResourceNotFoundException("User with ID :" + id + " Not Found");
         }
@@ -85,6 +96,8 @@ public class UserController {
 
     @PutMapping("/{id}")
     ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDto user) {
+
+        LOGGER.info("Updating user {}", id);
 
         User updatedUser = userService.updateUser(id, user);
         return ResponseEntity.ok().body(updatedUser);
