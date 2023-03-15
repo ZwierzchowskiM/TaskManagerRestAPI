@@ -1,3 +1,15 @@
+# TaskManager
+
+## Table of Contents
+* [General Info](#general-information)
+* [Technologies Used](#technologies-used)
+* [Requirements](#requirements)
+* [Room for Improvement](#room-for-improvement)
+
+
+## General Information
+This application is Task Manager Rest API. It allows to assign tasks to users, filtering, adding new items, editing and deleting an existing item, sending email notifications.
+
 
 ## Technologies Used
 Project is created with:
@@ -37,6 +49,10 @@ You can open Swagger UI at address:
 http://localhost:8080/swagger-ui/index.html
 
 
+## Requirements
+
+* JDK 17
+* Docker
 
 ## Room for Improvement
 
