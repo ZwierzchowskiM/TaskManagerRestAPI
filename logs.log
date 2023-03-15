@@ -744,3 +744,6 @@ delete from users where id=? [23503-214]
 2023-03-15 23:37:57 [http-nio-8080-exec-6] INFO  c.r.t.controllers.TaskController - adding user 6 to task 7
 2023-03-15 23:38:33 [http-nio-8080-exec-8] INFO  c.r.t.controllers.UserController - Getting all users
 2023-03-15 23:40:09 [http-nio-8080-exec-10] INFO  c.r.t.controllers.TaskController - Creating new task
+2023-03-15 23:58:03 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-15 23:58:03 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-03-15 23:58:03 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
