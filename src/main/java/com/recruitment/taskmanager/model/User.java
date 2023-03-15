@@ -18,7 +18,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class User {
 
     @Id
@@ -39,4 +38,9 @@ public class User {
     @JsonIgnore
     @ManyToMany(mappedBy = "users")
     List<Task> tasks = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + "email: " + email;
+    }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">Template for HTML email</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p>
+    Hello, <span th:text="${name}">Peter Static</span>!
+</p>
+<p>
+    You have been successfully added to the  <span th:text="${title}">Peter Static</span> <br>
+    Here is task decription:  <span th:text="${description}">Task description</span>
+</p>
+
+<p>
+    All users assigned to this task
+<ul th:remove="all-but-first">
+    <li th:each="user : ${users}" th:text="${user}">John Doe</li>
+    <li>Tom Smith</li>
+    <li>Bob Johnson</li>
+</ul>
+</p>
+
+<p>
+    Regards, <br/>
+    <em>Marcin</em>
+</p>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.recruitment.taskmanager.exceptions;
 
+import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -32,6 +33,11 @@ public class AppExceptionController {
     @ExceptionHandler(value = DateTimeParseException.class)
     public ResponseEntity<Object> exception(DateTimeParseException ex) {
         return new ResponseEntity<>("Wrong Date format", HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = MessagingException.class)
+    public ResponseEntity<Object> exception(MessagingException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

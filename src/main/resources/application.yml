@@ -5,6 +5,17 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
+    host: smtp.gmail.com
+    username: 'app.mzwierzchowski@gmail.com'
+    password: 'bxgglpdghxorhsdk'
+    port: '587'
 api:
   path: api/v1
 logging:
