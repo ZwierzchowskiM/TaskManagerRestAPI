@@ -20,10 +20,12 @@ public class TaskService {
 
     TaskRepository taskRepository;
     UserIdMapper userIdMapper;
+    EmailService emailService;
 
-    public TaskService(TaskRepository taskRepository, UserIdMapper userIdMapper) {
+    public TaskService(TaskRepository taskRepository, UserIdMapper userIdMapper, EmailService emailService) {
         this.taskRepository = taskRepository;
         this.userIdMapper = userIdMapper;
+        this.emailService = emailService;
     }
 
     @Transactional
@@ -45,6 +47,8 @@ public class TaskService {
         newTask.setDueDate(taskDto.getDueDate());
         taskRepository.save(newTask);
 
+        emailService.sendToAllTaskUsers(newTask);
+
         return newTask;
     }
 
@@ -64,6 +68,8 @@ public class TaskService {
         }
         task.getUsers().add(user);
 
+        emailService.sendUserAddedToTask(user, task);
+
         return task;
     }
 
@@ -72,7 +78,10 @@ public class TaskService {
         User user = userIdMapper.mapToUser(userId);
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task with ID :" + taskId + " Not Found"));
+
+
         task.getUsers().remove(user);
+        emailService.sendUserRemovedFromTask(user, task);
 
         return task;
     }
