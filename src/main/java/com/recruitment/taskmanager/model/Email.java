@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Map;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,8 +16,10 @@ import lombok.Setter;
 
 public class Email {
 
-    // Class data members
-    private String recipient;
-    private String msgBody;
-    private String subject;
+    String to;
+    String from;
+    String subject;
+    String text;
+    String template;
+    Map<String, Object> properties;
 }
