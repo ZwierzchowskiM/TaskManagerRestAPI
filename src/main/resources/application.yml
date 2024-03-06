@@ -13,8 +13,8 @@ spring:
             enable: 'true'
           auth: 'true'
     host: smtp.gmail.com
-    username: 'app.mzwierzchowski@gmail.com'
-    password: 'bxgglpdghxorhsdk'
+    username: 'credentials username'
+    password: 'credentials password'
     port: '587'
 api:
   path: api/v1
